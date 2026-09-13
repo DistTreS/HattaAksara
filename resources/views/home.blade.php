@@ -762,7 +762,7 @@
     </div>
 </section>
 
-<!-- 2. Metrics Bar -->
+<!-- 2. Metrics Bar (Faktual & Terhubung Dinamis ke Basis Data) -->
 <div class="container">
     <div class="metrics-bar">
         <div class="metric-item">
@@ -771,7 +771,7 @@
             </div>
             <div>
                 <div class="metric-number">{{ $provincesCount ?? 38 }}</div>
-                <div class="metric-label">Provinsi Terjangkau</div>
+                <div class="metric-label">Provinsi Sasaran ISLT</div>
             </div>
         </div>
         <div class="metric-item">
@@ -779,26 +779,26 @@
                 <i class="fa-solid fa-user-graduate"></i>
             </div>
             <div>
-                <div class="metric-number">{{ isset($totalAlumni) && $totalAlumni > 0 ? number_format($totalAlumni, 0, ',', '.') . '+' : '5.000+' }}</div>
-                <div class="metric-label">Alumni Hatta Muda</div>
+                <div class="metric-number">{{ number_format($totalAlumni ?? 0, 0, ',', '.') }}</div>
+                <div class="metric-label">Alumni Hatta Muda Terdata</div>
             </div>
         </div>
         <div class="metric-item">
             <div class="metric-icon">
-                <i class="fa-solid fa-hand-holding-heart"></i>
+                <i class="fa-solid fa-book-open-reader"></i>
             </div>
             <div>
-                <div class="metric-number">100%</div>
-                <div class="metric-label">Beasiswa Pembinaan</div>
+                <div class="metric-number">{{ number_format($totalPublications ?? 0, 0, ',', '.') }}</div>
+                <div class="metric-label">Karya & Gagasan Rilis</div>
             </div>
         </div>
         <div class="metric-item">
             <div class="metric-icon">
-                <i class="fa-solid fa-award"></i>
+                <i class="fa-solid fa-id-card-clip"></i>
             </div>
             <div>
-                <div class="metric-number">Top 1</div>
-                <div class="metric-label">Pelatihan Kepemimpinan OSIS</div>
+                <div class="metric-number">{{ number_format($totalApplicants ?? 0, 0, ',', '.') }}</div>
+                <div class="metric-label">Pendaftar Seleksi ISLT</div>
             </div>
         </div>
     </div>

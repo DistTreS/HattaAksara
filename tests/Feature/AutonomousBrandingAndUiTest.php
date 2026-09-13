@@ -69,4 +69,19 @@ class AutonomousBrandingAndUiTest extends TestCase
             $response->assertDontSee('Yayasan Proklamator Bung Hatta');
         }
     }
+    public function test_homepage_metrics_bar_is_factual_and_free_of_overclaims(): void
+    {
+        $response = $this->get(route('home'));
+        $response->assertStatus(200);
+
+        // Pastikan tidak ada overclaim beasiswa atau peringkat palsu
+        $response->assertDontSee('Beasiswa Pembinaan');
+        $response->assertDontSee('Top 1');
+
+        // Pastikan metrik riil terpasang
+        $response->assertSee('Provinsi Sasaran ISLT');
+        $response->assertSee('Alumni Hatta Muda Terdata');
+        $response->assertSee('Karya & Gagasan Rilis', false);
+        $response->assertSee('Pendaftar Seleksi ISLT');
+    }
 }

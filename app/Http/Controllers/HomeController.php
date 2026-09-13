@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlumniProfile;
+use App\Models\EJournal;
+use App\Models\IsltApplicant;
 use App\Models\PageContent;
 use App\Models\Post;
 use App\Models\Program;
@@ -40,11 +42,12 @@ class HomeController extends Controller
         // 4. Programs
         $programs = Program::orderBy('sort_order')->take(2)->get();
 
-        // 5. Impact Metrics
+        // 5. Impact Metrics (Faktual & Dinamis dari Basis Data Tanpa Overclaim)
         $totalAlumni = User::where('role', 'hatta_muda')->where('status', 'approved')->count();
-        $provincesCount = AlumniProfile::distinct('province')->count('province');
-        $provincesCount = max($provincesCount, 38); // Target 38 provinsi
+        $totalApplicants = IsltApplicant::count();
         $totalPublications = Post::published()->count();
+        $totalJournals = EJournal::count();
+        $provincesCount = 38; // Sasaran cakupan nasional 38 provinsi
 
         return view('home', compact(
             'featuredNews',
@@ -52,8 +55,10 @@ class HomeController extends Controller
             'featuredArticles',
             'programs',
             'totalAlumni',
-            'provincesCount',
-            'totalPublications'
+            'totalApplicants',
+            'totalPublications',
+            'totalJournals',
+            'provincesCount'
         ));
     }
 
