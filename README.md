@@ -1,58 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hatta Aksara Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **Gerakan Kepemimpinan Pemuda, Literasi Kebangsaan, dan Rekayasa Karakter Bangsa.**
 
-## About Laravel
+Platform digital resmi **Hatta Aksara Project** — sebuah inisiatif otonom pemuda Indonesia yang berdedikasi melahirkan pemimpin berkarakter luhur, berintegritas tinggi, dan berwawasan kebangsaan yang kokoh berakar pada nilai-nilai keteladanan Mohammad Hatta.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Laravel](https://img.shields.io/badge/Laravel-11%2F12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tests](https://img.shields.io/badge/PHPUnit-35%20Passed%20(100%25)-success?style=for-the-badge&logo=php)](tests)
+[![License](https://img.shields.io/badge/License-MIT-blue.style=for-the-badge)](LICENSE)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🌟 Fitur Utama
 
-## Learning Laravel
+1. **Indonesian Student Leadership Training (ISLT)**
+   - Formulir registrasi seleksi ketua/pengurus OSIS se-Indonesia.
+   - Generasi otomatis kode registrasi unik (`ISLT-YYYY-XXXX-XXXX`).
+   - Ekspor data pendaftar ke format Excel (XLSX) dan PDF untuk tim seleksi.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Jejaring Alumni Hatta Muda**
+   - Portal registrasi dan verifikasi alumni ISLT lintas angkatan.
+   - Ruang kontribusi karya (Aksi Hatta Muda & Opini/Artikel).
+   - Pengelolaan profil dan jejaring kolaborasi nasional.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Ruang Baca & E-Jurnal Kebangsaan**
+   - Publikasi artikel ilmiah, esai pemikiran, dan kajian kebangsaan.
+   - Unduhan berkas E-Jurnal dengan pelacak jumlah unduhan otomatis (*download counter*).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+4. **Media Edukasi & Galeri Video Resmi**
+   - Integrasi video resmi dari kanal YouTube [@hattaaksaraproject](https://www.youtube.com/@hattaaksaraproject).
+   - Pemutar modal interaktif langsung di dalam platform tanpa iklan luar.
 
-## Agentic Development
+5. **Dashboard Redaksi & Manajemen Admin**
+   - Kurasi dan persetujuan naskah masuk dari kontributor/alumni.
+   - Verifikasi berkas dan persetujuan akun alumni baru.
+   - Manajemen konten program, berita, kategori, dan e-jurnal.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## 🎨 Desain & UI/UX
+
+- **Nuansa Warna Elegan**: Deep Cosmic Violet (`#0C0022`), Maroon Bung Hatta (`#800000`), dan Gold Accent (`#E6B800`).
+- **Clean & High-Contrast Layout**: Tipografi modern Google Fonts (Plus Jakarta Sans), cards interaktif dengan micro-interactions, dan glassmorphism halus.
+- **Responsif**: Dioptimalkan untuk pengalaman mulus di desktop, tablet, dan perangkat seluler.
+
+---
+
+## 🚀 Panduan Instalasi & Menjalankan Lokal
+
+### Prasyarat
+- PHP >= 8.2 (dengan ekstensi `pdo_sqlite`, `mbstring`, `openssl`, `curl`)
+- Composer
+- Node.js & NPM
+
+### Langkah Instalasi
+
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/DistTreS/HattaAksara.git
+   cd HattaAksara
+   ```
+
+2. **Install dependensi PHP & JavaScript:**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Setup Environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Migrasi Database & Seeding Data Awal:**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate --seed
+   ```
+
+5. **Jalankan Server Lokal:**
+   ```bash
+   php artisan serve
+   ```
+   Buka peramban di `http://localhost:8000`.
+
+---
+
+## 🧪 Pengujian (Unit & Feature Testing)
+
+Platform ini dilengkapi dengan 35 pengujian otomatis (**100% Passed**) mencakup Model, Eloquent Relations, Query Scopes, Alur Registrasi, RBAC, dan Validasi Keamanan:
 
 ```bash
-composer require laravel/boost --dev
+# Menjalankan seluruh test suite
+php artisan test
 
-php artisan boost:install
+# Menjalankan hanya Unit Tests
+php artisan test --testsuite=Unit
+
+# Menjalankan hanya Feature Tests
+php artisan test --testsuite=Feature
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Statistik Uji Coba:
+- **Total Tests**: 35 Passed (0 Failed)
+- **Total Assertions**: 231 Assertions
+- **Durasi Eksekusi**: ~1.1 detik (In-memory SQLite)
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🔑 Kredensial Default (Seeder)
 
-## Code of Conduct
+Setelah menjalankan `php artisan db:seed`, Anda dapat login menggunakan kredensial bawaan:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Administrator:**
+  - Email: `admin@hattaaksara.id`
+  - Password: `password`
+- **Alumni Terverifikasi (Hatta Muda):**
+  - Email: `alumni@hattaaksara.id`
+  - Password: `password`
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📄 Lisensi
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Platform ini dirilis di bawah lisensi MIT License.
