@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    --color-violet-500: #7300FF;
+    --color-violet-600: #5900cc;
+    --color-violet-700: #4D00B3;
+    --color-purple-dark: #0C0022;
+    --color-lilac-bg: #F6F2FB;
+}
