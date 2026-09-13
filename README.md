@@ -6,7 +6,7 @@ Platform digital resmi **Hatta Aksara Project** — sebuah inisiatif otonom pemu
 
 [![Laravel](https://img.shields.io/badge/Laravel-11%2F12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Tests](https://img.shields.io/badge/PHPUnit-35%20Passed%20(100%25)-success?style=for-the-badge&logo=php)](tests)
+[![Tests](https://img.shields.io/badge/PHPUnit-77%20Passed%20(100%25)-success?style=for-the-badge&logo=php)](tests)
 [![License](https://img.shields.io/badge/License-MIT-blue.style=for-the-badge)](LICENSE)
 
 ---
@@ -89,7 +89,7 @@ Platform digital resmi **Hatta Aksara Project** — sebuah inisiatif otonom pemu
 
 ## 🧪 Pengujian (Unit & Feature Testing)
 
-Platform ini dilengkapi dengan 35 pengujian otomatis (**100% Passed**) mencakup Model, Eloquent Relations, Query Scopes, Alur Registrasi, RBAC, dan Validasi Keamanan:
+Platform ini dilengkapi dengan 77 pengujian otomatis (**100% Passed**) mencakup Model, Eloquent Relations, Query Scopes, Alur Registrasi, RBAC, dan Validasi Keamanan:
 
 ```bash
 # Menjalankan seluruh test suite
@@ -103,8 +103,8 @@ php artisan test --testsuite=Feature
 ```
 
 ### Statistik Uji Coba:
-- **Total Tests**: 35 Passed (0 Failed)
-- **Total Assertions**: 231 Assertions
+- **Total Tests**: 77 Passed (0 Failed)
+- **Total Assertions**: 467 Assertions
 - **Durasi Eksekusi**: ~1.1 detik (In-memory SQLite)
 
 ---

@@ -47,7 +47,7 @@ class EJournalController extends Controller
 
         // If it's a seed document or dummy path, generate a graceful response or return fallback PDF
         return response(
-            "Dokumen: {$journal->title}\nPenulis: {$journal->author_or_curator}\nTahun: {$journal->publication_year}\nKategori: {$journal->category}\n\nDeskripsi:\n{$journal->description}\n\n(Diterbitkan resmi oleh Yayasan Proklamator Bung Hatta - Hatta Aksara Project)",
+            "Dokumen: {$journal->title}\nPenulis: {$journal->author_or_curator}\nTahun: {$journal->publication_year}\nKategori: {$journal->category}\n\nDeskripsi:\n{$journal->description}\n\n(Diterbitkan resmi oleh Hatta Aksara Project - Ruang Kajian & Kepemimpinan Pemuda)",
             200,
             [
                 'Content-Type' => 'text/plain; charset=utf-8',
