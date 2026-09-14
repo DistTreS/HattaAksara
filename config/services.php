@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'google_sheets' => [
+        'webhook_url' => env('GOOGLE_SHEETS_WEBHOOK_URL'),
+    ],
+
 ];

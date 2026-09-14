@@ -206,13 +206,29 @@ class AlumniController extends Controller
             $post->action_date = $validated['action_date'] ?? $post->action_date;
         }
 
+        $wasPublished = ($post->status === 'published');
+
+        // PASTIKAN: Setiap kali diedit oleh penulis (Hatta Muda), naskah WAJIB kembali ke pending_review (jika submit) atau draft (jika draft)
+        // Tidak boleh tetap berstatus 'published' otomatis!
         if ($validated['action_button'] === 'submit') {
             $post->status = 'pending_review';
+            $post->admin_notes = null; // Bersihkan catatan revisi terdahulu karena naskah baru sudah diajukan
         } else {
             $post->status = 'draft';
         }
 
         $post->save();
+
+        if ($wasPublished && $post->status === 'pending_review') {
+            return redirect()->route('alumni.my-posts')
+                ->with('success', 'Perubahan naskah tulisan berhasil disimpan.')
+                ->with('warning', 'Naskah yang sebelumnya telah tayang kini ditarik sementara dari tayangan publik dan masuk kembali ke antrean moderasi redaksi untuk disetujui ulang.');
+        }
+
+        if ($wasPublished && $post->status === 'draft') {
+            return redirect()->route('alumni.my-posts')
+                ->with('info', 'Naskah ditarik dari tayangan publik dan disimpan sebagai Draf pribadi.');
+        }
 
         return redirect()->route('alumni.my-posts')
             ->with('success', 'Perubahan naskah tulisan berhasil disimpan.');

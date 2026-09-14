@@ -23,6 +23,18 @@
                 Silakan lakukan revisi naskah pada formulir di bawah ini, lalu klik tombol <strong>"Kirim Ulang Naskah Revisi"</strong>.
             </p>
         </div>
+    @elseif($post->status === 'published')
+        <div style="background: #fffbeb; border: 2px solid #f59e0b; border-radius: 12px; padding: 22px; margin-bottom: 30px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <i class="fa-solid fa-shield-halved" style="color:#d97706; font-size:1.2rem;"></i>
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: #92400e; margin:0;">
+                    Kebijakan Moderasi Ulang Naskah Terbit
+                </h3>
+            </div>
+            <p style="font-size: 0.88rem; color: #78350f; margin: 0; line-height: 1.6;">
+                Naskah ini saat ini <strong>telah tayang di publik</strong>. Untuk menjaga integritas dan akurasi informasi, apabila Anda mengubah isi dan mengirimkannya kembali, naskah akan <strong>otomatis ditarik sementara dari tayangan publik</strong> dan berstatus <em>Menunggu Persetujuan Redaksi</em> hingga disetujui ulang oleh admin.
+            </p>
+        </div>
     @endif
 
     <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
@@ -119,7 +131,7 @@
             </button>
             <button type="submit" name="action_button" value="submit" class="btn btn-primary">
                 <i class="fa-solid fa-paper-plane"></i>
-                {{ $post->status === 'revision_required' ? 'Kirim Ulang Naskah Revisi' : 'Ajukan untuk Ditinjau Redaksi' }}
+                {{ $post->status === 'published' ? 'Simpan & Ajukan Persetujuan Ulang Redaksi' : ($post->status === 'revision_required' ? 'Kirim Ulang Naskah Revisi' : 'Ajukan untuk Ditinjau Redaksi') }}
             </button>
         </div>
     </form>

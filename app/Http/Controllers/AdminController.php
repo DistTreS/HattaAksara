@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -169,8 +170,10 @@ class AdminController extends Controller
 
         $applicants = $query->latest()->paginate(20)->withQueryString();
         $provinces = IsltApplicant::distinct()->pluck('province')->filter();
+        $sheetsWebhookUrl = PageContent::where('section_key', 'google_sheets_webhook_url')->value('content')
+            ?? config('services.google_sheets.webhook_url');
 
-        return view('admin.islt-applicants', compact('applicants', 'provinces', 'search', 'status', 'province'));
+        return view('admin.islt-applicants', compact('applicants', 'provinces', 'search', 'status', 'province', 'sheetsWebhookUrl'));
     }
 
     public function exportIsltXlsx(): StreamedResponse
@@ -245,11 +248,75 @@ class AdminController extends Controller
 
     public function syncIsltGoogleSheets(): RedirectResponse
     {
-        // Mark all unsynced applicants as synced
-        $count = IsltApplicant::whereNull('synced_to_sheets_at')->count();
-        IsltApplicant::whereNull('synced_to_sheets_at')->update(['synced_to_sheets_at' => now()]);
+        $webhookUrl = PageContent::where('section_key', 'google_sheets_webhook_url')->value('content')
+            ?? config('services.google_sheets.webhook_url');
 
-        return back()->with('success', "Sinkronisasi berhasil! {$count} data pendaftar baru telah diteruskan ke Google Spreadsheet panitia.");
+        if (empty($webhookUrl)) {
+            return back()->with('warning', 'URL Google Spreadsheet Webhook belum dikonfigurasi. Silakan klik tombol "Pengaturan Spreadsheet" untuk memasukkan URL Webhook Google Spreadsheet panitia.');
+        }
+
+        $unsynced = IsltApplicant::whereNull('synced_to_sheets_at')->get();
+        $count = $unsynced->count();
+
+        if ($count === 0) {
+            return back()->with('info', 'Semua data pendaftar ISLT saat ini sudah tersinkronisasi ke Google Spreadsheet.');
+        }
+
+        $payload = $unsynced->map(function ($a) {
+            return [
+                'registration_code' => $a->registration_code,
+                'full_name' => $a->full_name,
+                'nisn' => $a->nisn ?? '-',
+                'birth_place' => $a->birth_place,
+                'birth_date' => $a->birth_date?->format('d/m/Y') ?? '-',
+                'gender' => $a->gender === 'L' ? 'Laki-laki' : 'Perempuan',
+                'whatsapp_number' => $a->whatsapp_number,
+                'email' => $a->email,
+                'province' => $a->province,
+                'city' => $a->city,
+                'school_name' => $a->school_name,
+                'osis_position' => $a->osis_position,
+                'organization_experience' => $a->organization_experience ?? '-',
+                'motivation_essay' => $a->motivation_essay ?? '-',
+                'submitted_at' => $a->created_at->format('d/m/Y H:i'),
+            ];
+        })->toArray();
+
+        try {
+            $response = Http::timeout(15)->post($webhookUrl, [
+                'event' => 'sync_applicants',
+                'secret' => 'hatta_aksara_sync',
+                'applicants' => $payload,
+            ]);
+
+            if ($response->successful() || in_array($response->status(), [200, 201, 302])) {
+                IsltApplicant::whereIn('id', $unsynced->pluck('id'))->update(['synced_to_sheets_at' => now()]);
+
+                return back()->with('success', "Sinkronisasi berhasil! {$count} data pendaftar baru telah diteruskan dan tercatat di Google Spreadsheet panitia.");
+            }
+
+            return back()->with('error', 'Gagal mengirim data ke Google Spreadsheet. Server merespons dengan status: ' . $response->status());
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kendala koneksi ke Google Spreadsheet: ' . $e->getMessage());
+        }
+    }
+
+    public function saveSheetsConfig(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'sheets_webhook_url' => ['nullable', 'url', 'max:500'],
+        ]);
+
+        PageContent::updateOrCreate(
+            ['section_key' => 'google_sheets_webhook_url'],
+            [
+                'title' => 'URL Webhook Google Spreadsheet ISLT',
+                'content' => $validated['sheets_webhook_url'] ?? '',
+                'updated_by' => Auth::id(),
+            ]
+        );
+
+        return back()->with('success', 'Konfigurasi URL Google Spreadsheet berhasil disimpan.');
     }
 
     // --- 4. Berita Resmi & Kegiatan (Admin CRUD) ---

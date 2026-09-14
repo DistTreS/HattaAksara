@@ -84,6 +84,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/peserta-islt/export-xlsx', [AdminController::class, 'exportIsltXlsx'])->name('islt.export-xlsx');
     Route::get('/peserta-islt/export-pdf', [AdminController::class, 'exportIsltPdf'])->name('islt.export-pdf');
     Route::post('/peserta-islt/sync-sheets', [AdminController::class, 'syncIsltGoogleSheets'])->name('islt.sync-sheets');
+    Route::post('/peserta-islt/save-sheets-config', [AdminController::class, 'saveSheetsConfig'])->name('islt.save-sheets-config');
 
     // 4. Manajemen Berita News & Kegiatan
     Route::get('/berita', [AdminController::class, 'postsIndex'])->name('posts.index');
